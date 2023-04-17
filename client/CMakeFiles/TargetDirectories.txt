@@ -1,3 +1,0 @@
-/home/valentin/chat/client/CMakeFiles/client.dir
-/home/valentin/chat/client/CMakeFiles/edit_cache.dir
-/home/valentin/chat/client/CMakeFiles/rebuild_cache.dir

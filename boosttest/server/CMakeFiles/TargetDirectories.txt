@@ -1,3 +1,0 @@
-/home/valentin/chat/boosttest/server/CMakeFiles/server.dir
-/home/valentin/chat/boosttest/server/CMakeFiles/edit_cache.dir
-/home/valentin/chat/boosttest/server/CMakeFiles/rebuild_cache.dir
