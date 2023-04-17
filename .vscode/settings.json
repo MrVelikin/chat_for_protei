@@ -1,0 +1,14 @@
+{
+    "files.associations": {
+        "ctime": "cpp",
+        "iostream": "cpp",
+        "array": "cpp",
+        "*.ipp": "cpp",
+        "*.tcc": "cpp",
+        "list": "cpp",
+        "ostream": "cpp",
+        "vector": "cpp",
+        "system_error": "cpp"
+    },
+    "C_Cpp.errorSquiggles": "enabledIfIncludesResolve"
+}

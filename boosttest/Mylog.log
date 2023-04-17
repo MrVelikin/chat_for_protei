@@ -1,0 +1,10 @@
+[2023-04-13 12:49:12.259968]: A trace severity message
+[2023-04-13 12:49:12.260222]: A debug severity message
+[2023-04-13 12:49:12.260256]: An informational severity message
+[2023-04-13 12:49:12.260271]: A warning severity message
+[2023-04-13 12:49:12.260284]: An error severity message
+[2023-04-13 12:49:12.260297]: A fatal severity message
+[2023-04-13 12:49:12.260315]: Hello, World!
+[2023-04-13 12:49:12.260335]: This is 1234 - 1243
+[2023-04-13 12:49:12.260363]: This is Hey - Hey
+[2023-04-13 12:49:12.260387]: An informational severity message
