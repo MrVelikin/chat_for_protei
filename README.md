@@ -1,2 +1,4 @@
 # chat_for_protei
- simle starter chat
+Simle chat 
+server start - ./server <ip> <port>
+server client- ./client <ip> <port>
