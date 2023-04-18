@@ -55,20 +55,6 @@ void init()
     );
 }
 
-/*
-  We use 'fork' to make two process.
-    Child process:
-    - waiting for user's input message;
-    - and sending all users messages to parent process through pipe.
-    ('man pipe' has good example how to do it)
-
-    Parent process:
-    - wating for incoming messages(EPOLLIN):
-    -- from server(socket) to display;
-    -- from child process(pipe) to transmit to server(socket)
-     
-*/
-
 int main(int argc, char *argv[])
 {
     init();
@@ -94,10 +80,6 @@ int main(int argc, char *argv[])
         addr.sin_port = htons(atoi(argv[2]));
         addr.sin_addr.s_addr = inet_addr(argv[1]);
 
-        //     event template for epoll_ctl(ev)
-        //     storage array for incoming events from epoll_wait(events)
-        //     and maximum events count could be 2
-        //     'sock' from server and 'pipe' from parent process(user inputs)
         static struct epoll_event event, events[2]; // Socket(in|out) & Pipe(in)
         event.events = EPOLLIN | EPOLLET;
 
