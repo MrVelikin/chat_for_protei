@@ -24,7 +24,7 @@
 // Default buffer size
 #define BUF_SIZE 1024
 
-// Default timeout - http://linux.die.net/man/2/epoll_wait
+// Default timeout 
 #define EPOLL_RUN_TIMEOUT -1
 
 #define MAX_NICKNAME 16
@@ -55,20 +55,6 @@ void init()
     );
 }
 
-/*
-  We use 'fork' to make two process.
-    Child process:
-    - waiting for user's input message;
-    - and sending all users messages to parent process through pipe.
-    ('man pipe' has good example how to do it)
-
-    Parent process:
-    - wating for incoming messages(EPOLLIN):
-    -- from server(socket) to display;
-    -- from child process(pipe) to transmit to server(socket)
-     
-*/
-
 int main(int argc, char *argv[])
 {
     init();
@@ -94,16 +80,12 @@ int main(int argc, char *argv[])
         addr.sin_port = htons(atoi(argv[2]));
         addr.sin_addr.s_addr = inet_addr(argv[1]);
 
-        //     event template for epoll_ctl(ev)
-        //     storage array for incoming events from epoll_wait(events)
-        //     and maximum events count could be 2
-        //     'sock' from server and 'pipe' from parent process(user inputs)
         static struct epoll_event event, events[2]; // Socket(in|out) & Pipe(in)
         event.events = EPOLLIN | EPOLLET;
 
         bool continue_to_work = true;
 
-        // *** Setup socket connection with server
+
         sock=socket(PF_INET, SOCK_STREAM, 0);
         if(sock<0)
         {
@@ -115,11 +97,9 @@ int main(int argc, char *argv[])
         CHK(connect(sock, (struct sockaddr *)&addr, sizeof(addr)) );//<0
 
         BOOST_LOG_SEV(lg, info) << "Соединение прошло успешно "<< sock;
-        // *** Setup pipe to send messages from child process to parent
+
         CHK(pipe(pipe_fd));
         BOOST_LOG_SEV(lg, info) << "Создался pipe с pipe_fd[0](для чтения): '"<<pipe_fd[0]<< "' и pipe_fd[1](для записи): "<<pipe_fd[1];
-
-        // *** Create & configure epoll
 
         epfd=epoll_create(EPOLL_SIZE);
         if (epfd<0)
@@ -131,7 +111,6 @@ int main(int argc, char *argv[])
         
         BOOST_LOG_SEV(lg, info) << "Создался epoll c fd: "<<epfd;
         
-        //     add server connetion(sock) to epoll to listen incoming messages from server
         event.data.fd = sock;
         CHK(epoll_ctl(epfd, EPOLL_CTL_ADD, sock, &event));
          BOOST_LOG_SEV(lg, info) << "Сокет добавлен в epoll fd="<<sock;
